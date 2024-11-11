@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маркетинговый Автоматизатор</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="dashboard.html">Личный кабинет</a>
+        </nav>
+        <h1>Создать рекламную кампанию</h1>
+        <form id="campaignForm">
+            <label for="campaignName">Название кампании:</label>
+            <input type="text" id="campaignName" name="campaignName" required>
+
+            <label for="budget">Бюджет:</label>
+            <input type="number" id="budget" name="budget" required>
+
+            <label for="targetAudience">Целевая аудитория (страна):</label>
+            <input type="text" id="targetAudience" name="targetAudience" required>
+
+            <label for="ageRange">Возрастной диапазон:</label>
+            <input type="text" id="ageRange" name="ageRange" placeholder="18-45" required>
+
+            <button type="submit">Запустить кампанию</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
