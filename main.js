@@ -14,20 +14,19 @@ document.getElementById('campaignForm').addEventListener('submit', function(even
     };
 
     // Отправляем данные о новой кампании на сервер
-    fetch('https://example.com/api/create-campaign', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(campaignData)
-    })
-    .then(response => response.json())
-    .then(result => {
-        // Перенаправление в личный кабинет после успешного создания кампании
-        window.location.href = 'dashboard.html';
-    })
-    .catch(error => {
-        console.error('Ошибка создания кампании:', error);
-        document.getElementById('result').innerText = 'Произошла ошибка при создании кампании.';
-    });
+    fetch('http://localhost:3000/api/create-campaign', {  // Локальный адрес вместо внешнего
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(campaignData)
+  })
+  .then(response => response.json())
+  .then(result => {
+      document.getElementById('result').innerText = `Кампания "${campaignData.name}" успешно создана с ID ${result.campaignId}.`;
+  })
+  .catch(error => {
+      console.error('Ошибка создания кампании:', error);
+      document.getElementById('result').innerText = 'Произошла ошибка при создании кампании.';
+  });  
 });
