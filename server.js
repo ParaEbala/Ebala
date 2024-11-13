@@ -3,39 +3,71 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-// Middleware для обработки JSON-запросов
+// Хранилище для кампаний (вместо базы данных)
+let campaigns = [];
+
+// Middleware для обработки JSON
 app.use(express.json());
 
-// Раздача статических файлов (например, index.html, styles.css)
+// Раздача статических файлов (например, HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
 
-// Маршрут для создания кампании (POST-запрос)
+// Маршрут для получения списка кампаний
+app.get('/api/get-campaigns', (req, res) => {
+    res.json(campaigns);  // Возвращаем список всех кампаний
+});
+
+// Маршрут для создания кампании
 app.post('/api/create-campaign', (req, res) => {
     const { name, budget, audience, ageRange } = req.body;
 
-    // Проверим, что все поля переданы
     if (!name || !budget || !audience || !ageRange) {
         return res.status(400).json({ error: 'Все поля обязательны!' });
     }
 
-    console.log('Получены данные кампании:', { name, budget, audience, ageRange });
+    // Создаём новую кампанию
+    const newCampaign = {
+        id: Math.floor(Math.random() * 10000).toString(),  // Случайный ID
+        name,
+        budget,
+        audience,
+        ageRange,
+        status: 'ACTIVE'  // Новая кампания всегда активна
+    };
 
-    // Возвращаем успешный ответ с сгенерированным ID кампании
-    res.json({
-        message: 'Кампания успешно создана!',
-        campaignId: Math.floor(Math.random() * 10000)  // Случайный ID кампании
-    });
+    campaigns.push(newCampaign);  // Добавляем кампанию в список
+    console.log('Кампания создана:', newCampaign);  // Лог успешного создания
+    res.json(newCampaign);  // Возвращаем созданную кампанию
 });
 
-// Маршрут для получения списка кампаний
-app.get('/api/get-campaigns', (req, res) => {
-    const campaigns = [
-        { id: '1', name: 'Кампания 1', budget: 1000, status: 'ACTIVE' },
-        { id: '2', name: 'Кампания 2', budget: 2000, status: 'PAUSED' },
-        { id: '3', name: 'Кампания 3', budget: 1500, status: 'ACTIVE' }
-    ];
-    
-    res.json(campaigns);
+// Маршрут для редактирования кампании
+app.put('/api/edit-campaign/:id', (req, res) => {
+    const campaignId = req.params.id;
+    const { name, budget, audience, ageRange, status } = req.body;
+
+    const campaign = campaigns.find(c => c.id === campaignId);
+    if (!campaign) {
+        return res.status(404).json({ error: 'Кампания не найдена!' });
+    }
+
+    // Обновляем данные кампании
+    if (name) campaign.name = name;
+    if (budget) campaign.budget = budget;
+    if (audience) campaign.audience = audience;
+    if (ageRange) campaign.ageRange = ageRange;
+    if (status) campaign.status = status;
+
+    res.json(campaign);  // Возвращаем обновлённую кампанию
+});
+
+// Маршрут для удаления кампании
+app.delete('/api/delete-campaign/:id', (req, res) => {
+    const campaignId = req.params.id;
+
+    // Фильтруем список кампаний, исключая ту, что нужно удалить
+    campaigns = campaigns.filter(c => c.id !== campaignId);
+
+    res.json({ message: 'Кампания удалена успешно!' });
 });
 
 // Запуск сервера

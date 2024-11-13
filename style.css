@@ -1,3 +1,4 @@
+/* Основные стили для обеих страниц */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -15,54 +16,59 @@ body {
 
 h1 {
     text-align: center;
+    color: #333;
 }
 
-nav {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    margin-right: 20px;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-form {
+/* Оформление для списка кампаний */
+.campaigns-list {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
-label {
-    margin: 10px 0 5px;
-}
-
-input {
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+/* Оформление для каждого элемента кампании */
+.campaign-item {
+    padding: 20px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    background-color: #fafafa;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.campaign-item h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.campaign-item p {
+    margin: 0 0 10px;
+    color: #555;
+}
+
+/* Стили для кнопок */
 button {
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    font-size: 14px;
+    margin-right: 10px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
-#result {
+button:active {
+    background-color: #004494;
+}
+
+/* Стили для сообщений об ошибках или результатах */
+.result {
     margin-top: 20px;
+    color: red;
+    text-align: center;
 }
