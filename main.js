@@ -13,18 +13,17 @@ document.getElementById('campaignForm').addEventListener('submit', function(even
         ageRange: ageRange
     };
 
-    // Отправляем данные о новой кампании на сервер
-    fetch('https://example.com/api/create-campaign', {
+    // Отправляем данные на сервер
+    fetch('http://localhost:3000/api/create-campaign', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify(campaignData)
     })
     .then(response => response.json())
     .then(result => {
-        // Перенаправление в личный кабинет после успешного создания кампании
-        window.location.href = 'dashboard.html';
+        document.getElementById('result').innerText = `Кампания "${result.name}" успешно создана с ID ${result.campaignId}.`;
     })
     .catch(error => {
         console.error('Ошибка создания кампании:', error);

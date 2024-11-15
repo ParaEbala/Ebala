@@ -27,7 +27,7 @@ app.post('/api/pause-campaign/:id', (req, res) => {
 app.post('/api/edit-campaign/:id', (req, res) => {
     const campaignId = req.params.id;
     const updatedData = req.body;
-    
+
     const campaign = campaigns.find(c => c.id === campaignId);
     if (campaign) {
         Object.assign(campaign, updatedData);

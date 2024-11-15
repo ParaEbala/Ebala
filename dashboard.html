@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Личный кабинет</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./style.css">  <!-- Подключаем общий CSS файл -->
 </head>
 <body>
     <div class="container">
-        <nav>
-            <a href="index.html">Создать новую кампанию</a>
-        </nav>
         <h1>Ваши рекламные кампании</h1>
-        <div id="campaigns"></div>
+
+        <div id="campaigns" class="campaigns-list">
+            <!-- Список кампаний будет динамически загружен сюда -->
+        </div>
+
+        <div id="result" class="result"></div> <!-- Для отображения ошибок -->
     </div>
 
-    <script src="dashboard.js"></script>
+    <script src="dashboard.js"></script> <!-- Подключаем JavaScript для загрузки кампаний -->
 </body>
 </html>
